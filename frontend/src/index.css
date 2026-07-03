@@ -1,0 +1,228 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Times New Roman across the whole product */
+:root {
+  font-family: "Times New Roman", Times, serif;
+}
+
+* {
+  font-family: "Times New Roman", Times, serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Smooth, Apple-like transitions when switching light and dark themes */
+[data-theme] {
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* Slim, quiet scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, currentColor 18%, transparent);
+  border-radius: 999px;
+}
+
+/* Frosted glass surface used across the redesigned UI */
+.glass {
+  background: color-mix(in srgb, var(--fallback-b1, oklch(var(--b1))) 72%, transparent);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+
+/* ---------------------------------------------------------------- */
+/* 3D landing scene (pure CSS perspective transforms, no libraries)  */
+/* ---------------------------------------------------------------- */
+
+.scene-3d {
+  perspective: 1100px;
+  perspective-origin: 50% 45%;
+}
+
+.scene-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  animation: stage-orbit 16s ease-in-out infinite alternate;
+}
+
+@keyframes stage-orbit {
+  from { transform: rotateX(14deg) rotateY(-18deg); }
+  to   { transform: rotateX(10deg) rotateY(18deg); }
+}
+
+.float-slow { animation: float-y 6s ease-in-out infinite; }
+.float-mid  { animation: float-y 4.5s ease-in-out infinite; }
+.float-fast { animation: float-y 3.5s ease-in-out infinite; }
+
+@keyframes float-y {
+  0%, 100% { transform: translateY(0) translateZ(var(--z, 0px)); }
+  50%      { transform: translateY(-16px) translateZ(var(--z, 0px)); }
+}
+
+/* Graduation cap built from stacked 3D planes */
+.cap {
+  position: absolute;
+  transform-style: preserve-3d;
+}
+.cap-board {
+  width: 150px;
+  height: 150px;
+  background: linear-gradient(135deg, #0d1611, #1f2a24);
+  transform: rotateX(90deg);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.35);
+  border-radius: 6px;
+}
+.cap-base {
+  position: absolute;
+  top: 34px;
+  left: 42px;
+  width: 66px;
+  height: 52px;
+  background: linear-gradient(180deg, #16351f, #0d1611);
+  border-radius: 8px 8px 10px 10px;
+  transform: translateZ(1px);
+}
+.cap-button {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  margin-left: -7px;
+  background: var(--tassel, #16a34a);
+  border-radius: 50%;
+  transform: translateZ(30px);
+}
+.cap-tassel {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 3px;
+  height: 78px;
+  background: var(--tassel, #16a34a);
+  transform-origin: top center;
+  transform: translateZ(30px) rotateZ(24deg);
+}
+.cap-tassel::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: -6px;
+  width: 15px;
+  height: 20px;
+  background: var(--tassel, #16a34a);
+  border-radius: 0 0 6px 6px;
+}
+
+/* Pencils built from a body, a wooden tip and a graphite point */
+.pencil {
+  position: absolute;
+  width: 20px;
+  height: 150px;
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 12px 14px rgba(0, 0, 0, 0.25));
+}
+.pencil-body {
+  position: absolute;
+  inset: 22px 0 0 0;
+  background: linear-gradient(90deg, #15803d, #22c55e 45%, #86efac 55%, #22c55e);
+  border-radius: 4px 4px 2px 2px;
+}
+.pencil-band {
+  position: absolute;
+  top: 14px;
+  left: 0;
+  right: 0;
+  height: 9px;
+  background: #cbd5c0;
+}
+.pencil-eraser {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 15px;
+  background: #f2b8c6;
+  border-radius: 5px 5px 0 0;
+}
+.pencil-tip {
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 22px solid #e8c79a;
+}
+.pencil-lead {
+  position: absolute;
+  bottom: -20px;
+  left: 6px;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 9px solid #1f2937;
+}
+
+/* Two stylized people facing each other */
+.person { position: absolute; transform-style: preserve-3d; }
+.person-head {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ffe0b8, #e6ad74);
+  box-shadow: inset -4px -4px 8px rgba(0, 0, 0, 0.15);
+}
+.person-body {
+  width: 70px;
+  height: 74px;
+  margin-top: -6px;
+  margin-left: -12px;
+  border-radius: 40px 40px 16px 16px;
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+}
+.person-body.a { background: linear-gradient(180deg, #16a34a, #0f7a37); }
+.person-body.b { background: linear-gradient(180deg, #0ea5e9, #0369a1); }
+
+/* Chat bubbles that pop toward the viewer */
+.bubble {
+  position: absolute;
+  padding: 8px 12px;
+  background: #ffffff;
+  color: #12211a;
+  border-radius: 14px;
+  font-size: 13px;
+  white-space: nowrap;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+  transform: translateZ(70px);
+  animation: pop 3.2s ease-in-out infinite;
+}
+.bubble.two { animation-delay: 1.4s; }
+
+@keyframes pop {
+  0%, 100% { opacity: 0.35; transform: translateZ(70px) translateY(0) scale(0.96); }
+  50%      { opacity: 1;    transform: translateZ(90px) translateY(-6px) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene-stage, .float-slow, .float-mid, .float-fast, .bubble { animation: none; }
+}
